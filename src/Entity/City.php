@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,9 +40,19 @@ class City
     private $lon;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $insee_code;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Buyer::class, mappedBy="city")
+     */
+    private $buyers;
+
+    public function __construct()
+    {
+        $this->buyers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,15 +107,46 @@ class City
         return $this;
     }
 
-    public function getInseeCode(): ?int
+    public function getInseeCode(): ?string
     {
         return $this->insee_code;
     }
 
-    public function setInseeCode(int $insee_code): self
+    public function setInseeCode(string $insee_code): self
     {
         $this->insee_code = $insee_code;
 
         return $this;
     }
+
+    /**
+     * @return Collection|Buyer[]
+     */
+    public function getBuyers(): Collection
+    {
+        return $this->buyers;
+    }
+
+    public function addBuyer(Buyer $buyer): self
+    {
+        if (!$this->buyers->contains($buyer)) {
+            $this->buyers[] = $buyer;
+            $buyer->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuyer(Buyer $buyer): self
+    {
+        if ($this->buyers->removeElement($buyer)) {
+            // set the owning side to null (unless already changed)
+            if ($buyer->getCity() === $this) {
+                $buyer->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
