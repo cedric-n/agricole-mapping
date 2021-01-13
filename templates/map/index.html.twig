@@ -6,7 +6,11 @@
            crossorigin=""/>
  {% endblock %}
 {% block body %}
-    <div class="container" id="map" style="height: 800px; width: 800px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" id="map" style="height: 100vh">
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -15,6 +19,6 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin="">
     </script>
-{{ encore_entry_script_tags('mapJs') }}
+    {{ encore_entry_script_tags('mapJs') }}
 {% endblock %}
 
