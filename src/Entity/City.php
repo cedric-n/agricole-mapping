@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,7 +20,7 @@ class City
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $zipcode;
 
@@ -38,21 +40,37 @@ class City
     private $lon;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $insee_code;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Buyer::class, mappedBy="city")
+     */
+    private $buyers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Farmer::class, mappedBy="city")
+     */
+    private $farmers;
+
+    public function __construct()
+    {
+        $this->buyers = new ArrayCollection();
+        $this->farmers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getZipcode(): ?int
+    public function getZipcode(): ?string
     {
         return $this->zipcode;
     }
 
-    public function setZipcode(int $zipcode): self
+    public function setZipcode(string $zipcode): self
     {
         $this->zipcode = $zipcode;
 
@@ -95,14 +113,74 @@ class City
         return $this;
     }
 
-    public function getInseeCode(): ?int
+    public function getInseeCode(): ?string
     {
         return $this->insee_code;
     }
 
-    public function setInseeCode(int $insee_code): self
+    public function setInseeCode(string $insee_code): self
     {
         $this->insee_code = $insee_code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Buyer[]
+     */
+    public function getBuyers(): Collection
+    {
+        return $this->buyers;
+    }
+
+    public function addBuyer(Buyer $buyer): self
+    {
+        if (!$this->buyers->contains($buyer)) {
+            $this->buyers[] = $buyer;
+            $buyer->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuyer(Buyer $buyer): self
+    {
+        if ($this->buyers->removeElement($buyer)) {
+            // set the owning side to null (unless already changed)
+            if ($buyer->getCity() === $this) {
+                $buyer->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Farmer[]
+     */
+    public function getFarmers(): Collection
+    {
+        return $this->farmers;
+    }
+
+    public function addFarmer(Farmer $farmer): self
+    {
+        if (!$this->farmers->contains($farmer)) {
+            $this->farmers[] = $farmer;
+            $farmer->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFarmer(Farmer $farmer): self
+    {
+        if ($this->farmers->removeElement($farmer)) {
+            // set the owning side to null (unless already changed)
+            if ($farmer->getCity() === $this) {
+                $farmer->setCity(null);
+            }
+        }
 
         return $this;
     }
