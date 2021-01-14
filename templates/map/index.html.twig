@@ -70,11 +70,11 @@
             .addTo(map);
         siege.bindPopup("<p>Siège social</p>")
 
-        {% for farmer in farmers %}
-        var marker = L.marker([ {{ farmer.city.lat }}, {{ farmer.city.lon }}]).addTo(map);
+        {% for transaction in transactions %}
+        var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}]).addTo(map);
 
 
-        marker.bindPopup("<b>Ville de </b><br> {{ farmer.city.city }}. <br><b>Code postale</b><br>{{ farmer.city.zipcode }}").openPopup();
+        marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postale</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
 
         {% endfor %}
     </script>

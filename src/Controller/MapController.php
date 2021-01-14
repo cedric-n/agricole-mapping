@@ -35,7 +35,7 @@ class MapController extends AbstractController
             'farmers'=>$farmerRepository->findBy([], [], 100),
             'products'=>$productRepository->findAll(),
             'cities'=>$cityRepository->findBy([], [], 100),
-            'transaction'=>$transactionRepository->findAll(),
+            'transactions'=>$transactionRepository->findBy([], [], 100),
 
         ]);
     }
