@@ -22,7 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('mapJs', './assets/map.js')
-
+    .addEntry('map', './assets/styles/map.scss')
     .addEntry('home', './assets/styles/home.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
