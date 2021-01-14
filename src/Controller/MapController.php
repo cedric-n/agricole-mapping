@@ -29,7 +29,7 @@ class MapController extends AbstractController
     {
         return $this->render('map/index.html.twig', [
             'categories'=>$categoryRepository->findAll(),
-            'farmer'=>$farmerRepository->findAll(),
+            'farmers'=>$farmerRepository->findBy([], [], 100),
             'products'=>$productRepository->findAll(),
             'cities'=>$cityRepository->findBy([], [], 100),
 
