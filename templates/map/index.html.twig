@@ -20,6 +20,18 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin="">
     </script>
-    {{ encore_entry_script_tags('mapJs') }}
+    <script>
+
+        let map = L.map('map').setView([48.852969, 2.349903], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        {% for city in cities %}
+            var marker = L.marker([ {{ city.lat }}, {{ city.lon }}]).addTo(map);
+
+        marker.bindPopup("<b>Hello world!</b><br> {{ city.zipcode }}.").openPopup();
+        {% endfor %}
+    </script>
 {% endblock %}
 
