@@ -74,7 +74,7 @@
         var marker = L.marker([ {{ farmer.city.lat }}, {{ farmer.city.lon }}]).addTo(map);
 
 
-        marker.bindPopup("<b>Ville de </b><br> {{ farmer.city.city }}. <br><b>Code postale</b><br>").openPopup();
+        marker.bindPopup("<b>Ville de </b><br> {{ farmer.city.city }}. <br><b>Code postale</b><br>{{ farmer.city.zipcode }}").openPopup();
 
         {% endfor %}
     </script>
