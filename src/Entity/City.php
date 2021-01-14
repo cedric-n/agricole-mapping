@@ -20,7 +20,7 @@ class City
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $zipcode;
 
@@ -49,9 +49,15 @@ class City
      */
     private $buyers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Farmer::class, mappedBy="city")
+     */
+    private $farmers;
+
     public function __construct()
     {
         $this->buyers = new ArrayCollection();
+        $this->farmers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,12 +65,12 @@ class City
         return $this->id;
     }
 
-    public function getZipcode(): ?int
+    public function getZipcode(): ?string
     {
         return $this->zipcode;
     }
 
-    public function setZipcode(int $zipcode): self
+    public function setZipcode(string $zipcode): self
     {
         $this->zipcode = $zipcode;
 
@@ -149,4 +155,33 @@ class City
         return $this;
     }
 
+    /**
+     * @return Collection|Farmer[]
+     */
+    public function getFarmers(): Collection
+    {
+        return $this->farmers;
+    }
+
+    public function addFarmer(Farmer $farmer): self
+    {
+        if (!$this->farmers->contains($farmer)) {
+            $this->farmers[] = $farmer;
+            $farmer->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFarmer(Farmer $farmer): self
+    {
+        if ($this->farmers->removeElement($farmer)) {
+            // set the owning side to null (unless already changed)
+            if ($farmer->getCity() === $this) {
+                $farmer->setCity(null);
+            }
+        }
+
+        return $this;
+    }
 }

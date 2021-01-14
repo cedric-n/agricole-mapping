@@ -6,8 +6,8 @@ use App\Entity\Buyer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 class BuyerFixtures extends Fixture implements ContainerAwareInterface, DependentFixtureInterface
 {
@@ -21,25 +21,25 @@ class BuyerFixtures extends Fixture implements ContainerAwareInterface, Dependen
     public function load(ObjectManager $manager)
     {
         $serializer = $this->container->get('serializer');
-        $filepath = realpath("./") . "/src/Resources/buyers.csv";
+        $filepath = realpath ("./") . "/src/Resources/buyers.csv";
 
         $data = $serializer->decode(file_get_contents($filepath), 'csv');
+        $i = 1;
 
-        for ($i=0; $i < count($data); $i++) {
-            $line = $data[$i];
+        foreach ($data as $line) {
             $buyer = new Buyer();
-            $buyer->setName($line['name']);
-            $buyer->setType($line['type']);
-            $cityId = $line['city_id'];
-            $buyer->setCity($this->getReference('city_' . $cityId));
-            $this->addReference('buyer_' . ($i+1), $buyer);
+            $buyer->setCity($this->getReference('city_'.$line['city_id']))
+                ->setName($line['name'])
+                ->setType($line['type']);
+            $this->addReference('buyer_' . $i, $buyer);
             $manager->persist($buyer);
+            $i++;
         }
 
         $manager->flush();
     }
 
-    public function getDependencies(): array
+    public function getDependencies()
     {
         return [CityFixtures::class];
     }

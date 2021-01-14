@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BuyerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=BuyerRepository::class)
@@ -19,7 +21,6 @@ class Buyer
 
     /**
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="buyers")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $city;
 
