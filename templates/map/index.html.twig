@@ -11,6 +11,12 @@
 {% block body %}
     <div class="container mapHackathon">
         <h1 class="m-3 text-center">Nos Fermiers</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button>Search</button>
+        {{ form_end(form) }}
+
         <div class="row justify-content-center">
             <div class="mapHackathon col-12 col-md-8 border border-warning p-0 m-0" id="map">
             </div>
