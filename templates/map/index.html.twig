@@ -12,34 +12,20 @@
     <div class="container mapHackathon">
         <h1 class="m-3 text-center">Nos Fermiers</h1>
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button>Search</button>
-        {{ form_end(form) }}
-
         <div class="row justify-content-center">
+
             <div class="mapHackathon col-12 col-md-8 border border-warning p-0 m-0" id="map">
             </div>
-            <div class="selectoption col-12 col-md-2 p-0 m-0 border-top border-warning">
-                <table class="table text-dark text-center border border-warning">
-                    <thead class=" text-center">
-                    <tr class="text-center">
-                        <th>Les différents produits</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    {% for category in categories %}
-                        <tr>
-                            <td>{{ category.name }} <input type="checkbox"> </td>
 
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            <div class="selectoption col-12 col-md-3 p-0 m-0 border border-warning justify-content-center">
+                <div class="container">
+                    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary btn m-3">{{ button_label|default('Rechercher') }}</button>
+                    {{ form_end(form) }}
+                </div>
             </div>
-
-        </div>
-    </div>
 
 {% endblock %}
 {% block javascripts %}

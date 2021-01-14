@@ -20,7 +20,7 @@ class SearchTransactionType extends AbstractType
                          'choice_label' => 'name',
                          'multiple' => true,
                          'expanded' => true,
-                         'label' => 'Selectionner: ',
+                         'label' => 'Trier par : ',
                          'label_attr' => [
                              'class' => 'checkbox-inline'
                          ]

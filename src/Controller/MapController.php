@@ -40,7 +40,7 @@ class MapController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $transactions = $transactionRepository->findBy(['product' => $search->toArray()]);
+            $transactions = $transactionRepository->findBy(['product' => $search->toArray()], [], 150 );
         } else {
             $transactions = $transactionRepository->findBy([], [], 25);
         }
