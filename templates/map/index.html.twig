@@ -70,18 +70,16 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-
+        
         let siege = L.marker([48.16847, 1.22049])
             .addTo(map);
-        siege.bindPopup("<p>siege social </p>")
+        siege.bindPopup("<p>Siège social</p>")
 
-        {% for city in cities %}
-
-        let marker{{ loop.index }} = L.marker([ {{ city.lat }}, {{ city.lon }}]).addTo(map);
-        marker{{ loop.index }}.bindPopup("<b>Hello world!</b><br> {{ city.zipcode }}.").openPopup();
+        {% for farmer in farmers %}
+        var marker = L.marker([ {{ farmer.city.lat }}, {{ farmer.city.lon }}]).addTo(map);
 
 
-
+        marker.bindPopup("<b>Hello world!</b><br> {{ farmer.city.zipcode }}.").openPopup();
         {% endfor %}
 
 
