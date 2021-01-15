@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapController extends AbstractController
 {
     /**
-     * @Route("/map", name="map")
+     * @Route("/", name="map")
      * @param CategoryRepository $categoryRepository
      * @param FarmerRepository $farmerRepository
      * @param CityRepository $cityRepository

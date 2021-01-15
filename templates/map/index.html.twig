@@ -11,16 +11,15 @@
      <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
  {% endblock %}
 {% block body %}
-    <div class="container mapHackathon">
-        <h1 class="m-3 text-center">Nos Fermiers</h1>
+    <div class="container-fluid mapHackathon">
 
         <div class="row justify-content-center">
 
-            <div class="mapHackathon col-12 col-md-8 border border-warning p-0 m-0" id="map">
+            <div class="mapHackathon col-12 col-md-10 border border-warning p-0 m-0" id="map">
             </div>
 
-            <div class="selectoption col-12 col-md-3 p-0 m-0 border border-warning justify-content-center">
-                <div class="container">
+            <div class="selectoption col-12 col-md-2 p-0 m-0 border border-warning justify-content-center">
+                <div class="container text-left">
                     {% form_theme form 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
@@ -59,24 +58,18 @@
         });
 
         var barnIcon = L.icon({
-            iconUrl: 'build/images/barn.f91425f2.png',
+            iconUrl: 'build/images/barn.png',
             iconSize:     [30, 30], // size of the icon
-            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
         var socialIcon = L.icon({
-            iconUrl: 'build/images/building.0b2c24f7.png',
+            iconUrl: 'build/images/building.png',
             iconSize:     [30, 30], // size of the icon
-            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
         var buyerIcon = L.icon({
-            iconUrl: 'build/images/grocery-cart.52e7b304.png',
+            iconUrl: 'build/images/grocery-cart.png',
             iconSize:     [40, 40], // size of the icon
-            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
         let map = L.map('map').setView([48.852969, 2.349903], 10);

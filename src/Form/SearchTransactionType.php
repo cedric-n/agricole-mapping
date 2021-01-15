@@ -21,8 +21,8 @@ class SearchTransactionType extends AbstractType
                          'multiple' => true,
                          'expanded' => true,
                          'label' => 'Trier par : ',
-                         'label_attr' => [
-                             'class' => 'checkbox-inline'
+                         'attr' => [
+                             'class' => 'products'
                          ]
                      ]);
         ;
