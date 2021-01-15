@@ -46,7 +46,7 @@ class MapController extends AbstractController
         } else {
 
 
-            $transactions = $transactionRepository->findBy([],[],1000);
+            $transactions = $transactionRepository->findBy([],[],10000);
 
         }
 
