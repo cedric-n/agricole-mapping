@@ -1,11 +1,10 @@
 @import "app";
 
-h1 {
-  font-family: $default-font-family;
-  color: $premium;
+body {
+  background-color: $light-grey;
 }
 
 .mapHackathon {
   color: $dark-grey;
-  height: 80vh;
+  height: 95vh;
 }
