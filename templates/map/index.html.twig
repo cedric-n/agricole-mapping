@@ -73,7 +73,7 @@
         });
 
         var buyerIcon = L.icon({
-            iconUrl: 'build/images/grocery-cart.ce39c383.png',
+            iconUrl: 'build/images/grocery-cart.52e7b304.png',
             iconSize:     [40, 40], // size of the icon
             iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -93,7 +93,7 @@
         {% for transaction in transactions %}
         var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}], {icon: barnIcon})/*.addTo(map)*/;
 
-        marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postale</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
+        marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postal</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
         {% endfor %}
@@ -101,7 +101,7 @@
         {% for buyer in buyers %}
         var buyer = L.marker([{{ buyer.city.lat }}, {{ buyer.city.lon }}], {icon: buyerIcon});
 
-        buyer.bindPopup("<b>Acheteur</b><br> {{ buyer.name }}.<br> <b>Ville de </b><br> {{ buyer.city.city }}. <br><b>Code postale</b><br>{{ buyer.city.zipcode }}. ").openPopup();
+        buyer.bindPopup("<b>Acheteur</b><br> {{ buyer.type }}.<br> <b>Ville de </b><br> {{ buyer.city.city }}. <br><b>Code postal</b><br>{{ buyer.city.zipcode }}. ").openPopup();
         markers.addLayer(buyer);
         map.addLayer(markers);
 
