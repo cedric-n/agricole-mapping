@@ -72,6 +72,13 @@
             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
+        var buyerIcon = L.icon({
+            iconUrl: 'build/images/grocery-cart.ce39c383.png',
+            iconSize:     [40, 40], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
         let map = L.map('map').setView([48.852969, 2.349903], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -92,7 +99,7 @@
         {% endfor %}
 
         {% for buyer in buyers %}
-        var buyer = L.marker([{{ buyer.city.lat }}, {{ buyer.city.lon }}]);
+        var buyer = L.marker([{{ buyer.city.lat }}, {{ buyer.city.lon }}], {icon: buyerIcon});
 
         buyer.bindPopup("<b>Acheteur</b><br> {{ buyer.name }}.<br> <b>Ville de </b><br> {{ buyer.city.city }}. <br><b>Code postale</b><br>{{ buyer.city.zipcode }}. ").openPopup();
         markers.addLayer(buyer);
