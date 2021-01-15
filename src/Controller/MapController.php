@@ -38,19 +38,19 @@ class MapController extends AbstractController
         $form = $this->createForm(SearchTransactionType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $form->getData()['search']->count() != 0){
             $search = $form->getData()['search'];
-            $transactions = $transactionRepository->findBy(['product' => $search->toArray()], [], 150 );
+            $transactions = $transactionRepository->findBy(['product' => $search->toArray()]);
         } else {
-            $transactions = $transactionRepository->findBy([], [], 25);
+            $transactions = $transactionRepository->findBy([],[],1000);
         }
 
 
         return $this->render('map/index.html.twig', [
             'categories'=>$categoryRepository->findAll(),
-            'farmers'=>$farmerRepository->findBy([], [], 100),
+            'farmers'=>$farmerRepository->findBy([], []),
             'products'=>$productRepository->findAll(),
-            'cities'=>$cityRepository->findBy([], [], 100),
+            'cities'=>$cityRepository->findBy([], []),
             'transactions'=>$transactions,
             'form' => $form->createView()
         ]);
