@@ -70,11 +70,20 @@
         {% for transaction in transactions %}
         var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}])/*.addTo(map)*/;
 
-
         marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postale</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
         {% endfor %}
+
+        {% for buyer in buyers %}
+        var buyer = L.marker([{{ buyer.city.lat }}, {{ buyer.city.lon }}]);
+
+        buyer.bindPopup("<b>Acheteur</b><br> {{ buyer.name }}.<br> <b>Ville de </b><br> {{ buyer.city.city }}. <br><b>Code postale</b><br>{{ buyer.city.zipcode }}. ").openPopup();
+        markers.addLayer(buyer);
+        map.addLayer(markers);
+
+        {% endfor %}
+
 </script>
 
 {% endblock %}

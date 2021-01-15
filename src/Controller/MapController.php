@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\SearchTransactionType;
+use App\Repository\BuyerRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CityRepository;
 use App\Repository\FarmerRepository;
@@ -31,6 +32,7 @@ class MapController extends AbstractController
         FarmerRepository $farmerRepository,
         CityRepository $cityRepository,
         ProductRepository $productRepository,
+        BuyerRepository $buyerRepository,
         TransactionRepository $transactionRepository, Request $request
     ): Response
     {
@@ -42,7 +44,7 @@ class MapController extends AbstractController
             $search = $form->getData()['search'];
             $transactions = $transactionRepository->findBy(['product' => $search->toArray()], [], 150 );
         } else {
-            $transactions = $transactionRepository->findBy([], [], 25);
+            $transactions = $transactionRepository->findBy([], [], 150);
         }
 
 
@@ -51,6 +53,7 @@ class MapController extends AbstractController
             'farmers'=>$farmerRepository->findBy([], [], 100),
             'products'=>$productRepository->findAll(),
             'cities'=>$cityRepository->findBy([], [], 100),
+            'buyers'=>$buyerRepository->findAll(),
             'transactions'=>$transactions,
             'form' => $form->createView()
         ]);
