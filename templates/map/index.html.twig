@@ -28,7 +28,8 @@
                     {{ form_end(form) }}
                 </div>
             </div>
-
+        </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -56,6 +57,21 @@
             coordsFromBrowser.lng = position.coords.longitude;
             map.setView([coordsFromBrowser.lat, coordsFromBrowser.lng], 11);
         });
+
+        var barnIcon = L.icon({
+            iconUrl: 'build/images/barn.f91425f2.png',
+            iconSize:     [40, 40], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
+        var socialIcon = L.icon({
+            iconUrl: 'build/images/building.0b2c24f7.png',
+            iconSize:     [40, 40], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
         let map = L.map('map').setView([48.852969, 2.349903], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -63,12 +79,12 @@
 
         var markers = L.markerClusterGroup();
 
-        let siege = L.marker([48.16847, 1.22049])
+        let siege = L.marker([48.16847, 1.22049], {icon: socialIcon})
             .addTo(map);
         siege.bindPopup("<p>Siège social</p>")
 
         {% for transaction in transactions %}
-        var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}])/*.addTo(map)*/;
+        var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}], {icon: barnIcon})/*.addTo(map)*/;
 
         marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postale</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
         markers.addLayer(marker);
