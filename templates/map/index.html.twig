@@ -7,6 +7,8 @@
      <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
            integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
            crossorigin="">
+     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
  {% endblock %}
 {% block body %}
     <div class="container mapHackathon">
@@ -44,6 +46,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src='https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js'></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin="">
@@ -72,16 +75,20 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        var markers = L.markerClusterGroup();
+
         let siege = L.marker([48.16847, 1.22049])
             .addTo(map);
         siege.bindPopup("<p>Siège social</p>")
 
         {% for transaction in transactions %}
-        var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}]).addTo(map);
+        var marker = L.marker([ {{ transaction.farmer.city.lat }}, {{ transaction.farmer.city.lon }}])/*.addTo(map)*/;
 
 
         marker.bindPopup("<b>Ville de </b><br> {{ transaction.farmer.city.city }}. <br><b>Code postale</b><br>{{ transaction.farmer.city.zipcode }}. <br><b>Produits</b><br>{{ transaction.product.category.name}}.").openPopup();
-
+        markers.addLayer(marker);
+        map.addLayer(markers);
         {% endfor %}
-    </script>
+</script>
+
 {% endblock %}
